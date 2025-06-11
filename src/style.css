@@ -1,0 +1,13 @@
+li.RaSimpleFormIterator-line {
+  padding-top: 10px !important;
+  border-bottom: 5px solid black !important;
+}
+
+.RaArrayInput-root > .MuiInputLabel-root {
+  font-size: 200%;
+}
+
+.MuiAutocomplete-root label {
+  font-size: 200%;
+  top:-12px;
+}

@@ -5,17 +5,16 @@ import {
   EmailField,
   DateField,
   ArrayField,
-  SingleFieldList,
-  ChipField,
   Datagrid,
-  Button,
   TopToolbar,
   EditButton,
+  FunctionField,
+  WithRecord,
+  Labeled,
 } from "react-admin";
+import { Stack } from "@mui/material";
 
-const DownloadButton = () => {
-  return <Button href="/cvs/1/download">Télécharger</Button>;
-};
+import { DownloadButton } from "../../components/DownloadButton";
 
 const Actions = () => (
   <TopToolbar>
@@ -27,43 +26,48 @@ const Actions = () => (
 export const CvShow = () => (
   <Show actions={<Actions />}>
     <SimpleShowLayout>
-      <TextField source="id" />
-      <TextField source="identite.prenom" />
-      <TextField source="identite.nom" />
-      <TextField source="identite.poste" />
-      <DateField source="contact.date_naissance" />
-      <TextField source="contact.telephone" />
-      <EmailField source="contact.email" />
-      <TextField source="contact.situation_familiale" />
-      <TextField source="contact.permis" />
+      <Stack direction="row" spacing={2} alignItems="center">
+        <TextField source="identite.prenom" />
+        <TextField source="identite.nom" />
+        <TextField source="identite.poste" />
+        <DateField source="contact.date_naissance" />
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <TextField source="contact.telephone" />
+        <EmailField source="contact.email" />
+        <TextField source="contact.situation_familiale" />
+        <TextField source="contact.permis" />
+      </Stack>
 
       <ArrayField source="langues">
-        <Datagrid>
+        <Datagrid bulkActionButtons={false} rowClick={false}>
           <TextField source="langue" />
           <TextField source="niveau" />
         </Datagrid>
       </ArrayField>
 
-      <ArrayField source="centres_interet">
-        <SingleFieldList>
-          <ChipField source="" />
-        </SingleFieldList>
-      </ArrayField>
+      <FunctionField
+        source="centres_interet"
+        render={(record) => (record.centres_interet || []).join(", ")}
+      />
 
-      <ArrayField source="competences">
-        <SingleFieldList>
-          <ChipField source="" />
-        </SingleFieldList>
-      </ArrayField>
+      <FunctionField
+        source="competences"
+        render={(record) => (record.competences || []).join(", ")}
+      />
 
-      <ArrayField source="profil_professionnel">
-        <SingleFieldList>
-          <ChipField source="" />
-        </SingleFieldList>
-      </ArrayField>
+      <Labeled label="Profil professionel">
+        <WithRecord
+          render={(record) => {
+            return (record.profil_professionnel || []).map((c: string, i) => (
+              <p key={i}>{c}</p>
+            ));
+          }}
+        />
+      </Labeled>
 
       <ArrayField source="experiences">
-        <Datagrid>
+        <Datagrid bulkActionButtons={false} rowClick={false}>
           <TextField source="debut" />
           <TextField source="fin" />
           <TextField source="structure" />
@@ -73,7 +77,7 @@ export const CvShow = () => (
       </ArrayField>
 
       <ArrayField source="formations">
-        <Datagrid>
+        <Datagrid bulkActionButtons={false} rowClick={false}>
           <TextField source="date" />
           <TextField source="intitule" />
         </Datagrid>

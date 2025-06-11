@@ -6,6 +6,7 @@ import { CvShow } from "./resources/cvs/CvShow";
 import { CvList } from "./resources/cvs/CvList";
 import { CvCreate } from "./resources/cvs/CvCreate";
 import { Dashboard } from "./dashboard/Dashboard";
+import "./style.css";
 
 const dataProvider = simpleRestProvider("http://localhost:3001");
 

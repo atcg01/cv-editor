@@ -6,39 +6,40 @@ import {
   ArrayInput,
   SimpleFormIterator,
 } from "react-admin";
+import { Stack } from "@mui/material";
+import AutoCompleteStringArrayInput from "../../components/AutoCompleteStringArrayInput";
 
 export const CvEdit = () => (
   <Edit>
     <SimpleForm>
-      <TextInput source="id" disabled />
-      <TextInput source="identite.prenom" />
-      <TextInput source="identite.nom" />
-      <TextInput source="identite.poste" />
-
-      <DateInput source="contact.date_naissance" />
-      <TextInput source="contact.telephone" />
-      <TextInput source="contact.email" />
-      <TextInput source="contact.situation_familiale" />
-      <TextInput source="contact.permis" />
+      <Stack direction="row" spacing={2} alignItems="center" width={"100%"}>
+        <TextInput source="identite.prenom" />
+        <TextInput source="identite.nom" />
+        <TextInput source="identite.poste" />
+        <DateInput source="contact.date_naissance" />
+      </Stack>
+      <Stack direction="row" spacing={2} alignItems="center" width={"100%"}>
+        <TextInput source="contact.telephone" />
+        <TextInput source="contact.email" />
+        <TextInput source="contact.situation_familiale" />
+        <TextInput source="contact.permis" />
+      </Stack>
 
       <ArrayInput source="langues">
         <SimpleFormIterator>
-          <TextInput source="langue" />
-          <TextInput source="niveau" />
+          <Stack direction="row" spacing={2} alignItems="center">
+            <TextInput source="langue" />
+            <TextInput source="niveau" />
+          </Stack>
         </SimpleFormIterator>
       </ArrayInput>
 
-      <ArrayInput source="centres_interet">
-        <SimpleFormIterator>
-          <TextInput source="" />
-        </SimpleFormIterator>
-      </ArrayInput>
+      <AutoCompleteStringArrayInput
+        source="centres_interet"
+        label="Centre d'intérêts"
+      />
 
-      <ArrayInput source="competences">
-        <SimpleFormIterator>
-          <TextInput source="" />
-        </SimpleFormIterator>
-      </ArrayInput>
+      <AutoCompleteStringArrayInput source="competences" label="Compétences" />
 
       <ArrayInput source="profil_professionnel">
         <SimpleFormIterator>
@@ -48,18 +49,25 @@ export const CvEdit = () => (
 
       <ArrayInput source="experiences">
         <SimpleFormIterator>
-          <TextInput source="debut" />
-          <TextInput source="fin" />
-          <TextInput source="structure" />
-          <TextInput source="lieu" />
-          <TextInput source="poste" />
+          <Stack direction="row" spacing={2} alignItems="center">
+            <TextInput source="debut" />
+            <TextInput source="fin" />
+          </Stack>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <TextInput source="structure" />
+            <TextInput source="lieu" />
+            <TextInput source="poste" />
+          </Stack>
+          <TextInput source="description" multiline />
         </SimpleFormIterator>
       </ArrayInput>
 
       <ArrayInput source="formations">
         <SimpleFormIterator>
-          <TextInput source="date" />
-          <TextInput source="intitule" />
+          <Stack direction="row" spacing={2} alignItems="center">
+            <TextInput source="date" />
+            <TextInput source="intitule" />
+          </Stack>
         </SimpleFormIterator>
       </ArrayInput>
     </SimpleForm>
